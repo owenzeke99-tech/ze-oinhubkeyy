@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zeroin Hub</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+:root{
+    --green:#a8ffb4;
+    --green-light:#d8ffdd;
+    --green-dark:#42dc61;
+    --black:#020403;
+}
+
+body{
+    min-height:100vh;
+    overflow:hidden;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:white;
+    background:
+        radial-gradient(
+            circle at 50% 30%,
+            rgba(77,255,101,.10),
+            transparent 32%
+        ),
+        radial-gradient(
+            circle at 10% 90%,
+            rgba(65,220,90,.07),
+            transparent 30%
+        ),
+        #020403;
+}
+
+/* =========================
+   BACKGROUND
+========================= */
+
+.background{
+    position:fixed;
+    inset:0;
+    overflow:hidden;
+    pointer-events:none;
+}
+
+.glow{
+    position:absolute;
+    width:400px;
+    height:400px;
+    border-radius:50%;
+    background:rgba(65,255,90,.07);
+    filter:blur(100px);
+    animation:glowMove 12s ease-in-out infinite alternate;
+}
+
+.glow.left{
+    left:-180px;
+    top:-180px;
+}
+
+.glow.right{
+    right:-180px;
+    bottom:-180px;
+    animation-delay:3s;
+}
+
+@keyframes glowMove{
+    from{
+        transform:translate(0,0);
+    }
+
+    to{
+        transform:translate(120px,80px);
+    }
+}
+
+/* Grid */
+
+.grid{
+    position:absolute;
+    left:-20%;
+    width:140%;
+    height:70%;
+    bottom:-35%;
+
+    background-image:
+        linear-gradient(
+            rgba(150,255,165,.06) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(150,255,165,.06) 1px,
+            transparent 1px
+        );
+
+    background-size:55px 55px;
+
+    transform:
+        perspective(500px)
+        rotateX(65deg);
+
+    opacity:.35;
+
+    animation:gridMove 8s linear infinite;
+}
+
+@keyframes gridMove{
+    from{
+        background-position:0 0;
+    }
+
+    to{
+        background-position:0 55px;
+    }
+}
+
+/* Particles */
+
+.particle{
+    position:absolute;
+
+    width:2px;
+    height:2px;
+
+    border-radius:50%;
+
+    background:var(--green);
+
+    box-shadow:
+        0 0 8px var(--green);
+
+    animation:particleUp linear infinite;
+}
+
+.p1{left:8%;bottom:-10px;animation-duration:10s;}
+.p2{left:20%;bottom:-10px;animation-duration:13s;}
+.p3{left:35%;bottom:-10px;animation-duration:9s;}
+.p4{left:52%;bottom:-10px;animation-duration:12s;}
+.p5{left:68%;bottom:-10px;animation-duration:15s;}
+.p6{left:82%;bottom:-10px;animation-duration:11s;}
+.p7{left:94%;bottom:-10px;animation-duration:14s;}
+
+@keyframes particleUp{
+    0%{
+        transform:translateY(0);
+        opacity:0;
+    }
+
+    20%{
+        opacity:.6;
+    }
+
+    80%{
+        opacity:.3;
+    }
+
+    100%{
+        transform:translateY(-110vh);
+        opacity:0;
+    }
+}
+
+/* =========================
+   CARD
+========================= */
+
+.card{
+    position:relative;
+    z-index:10;
+
+    width:min(92%,510px);
+
+    padding:38px 34px 30px;
+
+    border-radius:30px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(10,17,12,.96),
+            rgba(3,7,4,.97)
+        );
+
+    border:1px solid rgba(168,255,180,.14);
+
+    backdrop-filter:blur(25px);
+
+    box-shadow:
+        0 35px 100px rgba(0,0,0,.8),
+        0 0 70px rgba(80,255,100,.06);
+
+    text-align:center;
+
+    animation:cardIn .8s ease;
+}
+
+@keyframes cardIn{
+    from{
+        opacity:0;
+        transform:translateY(30px) scale(.96);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+}
+
+/* =========================
+   LOGO
+========================= */
+
+.logo-area{
+    position:relative;
+
+    width:150px;
+    height:125px;
+
+    margin:0 auto 5px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* Outer circle */
+
+.logo-circle{
+    position:absolute;
+
+    width:116px;
+    height:116px;
+
+    border-radius:50%;
+
+    border:1px solid rgba(168,255,180,.25);
+
+    box-shadow:
+        0 0 25px rgba(80,255,100,.10);
+
+    animation:circleSpin 12s linear infinite;
+}
+
+.logo-circle::before{
+    content:"";
+
+    position:absolute;
+
+    width:7px;
+    height:7px;
+
+    top:7px;
+    left:50%;
+
+    transform:translateX(-50%);
+
+    border-radius:50%;
+
+    background:var(--green);
+
+    box-shadow:
+        0 0 10px var(--green),
+        0 0 25px var(--green);
+}
+
+.logo-circle::after{
+    content:"";
+
+    position:absolute;
+
+    width:5px;
+    height:5px;
+
+    bottom:18px;
+    right:12px;
+
+    border-radius:50%;
+
+    background:#8cff9d;
+
+    box-shadow:
+        0 0 10px #8cff9d;
+}
+
+@keyframes circleSpin{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+/* Second ring */
+
+.logo-ring{
+    position:absolute;
+
+    width:137px;
+    height:58px;
+
+    border-radius:50%;
+
+    border:1px solid rgba(130,255,150,.28);
+
+    transform:rotate(-24deg);
+
+    animation:ringSpin 7s linear infinite;
+}
+
+@keyframes ringSpin{
+    from{
+        transform:rotate(-24deg);
+    }
+
+    to{
+        transform:rotate(336deg);
+    }
+}
+
+/* THE ACTUAL ZN */
+
+.logo-text{
+    position:relative;
+    z-index:5;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    width:108px;
+    height:82px;
+
+    font-size:42px;
+    line-height:1;
+
+    font-weight:1000;
+
+    letter-spacing:-5px;
+
+    /* Important: no skew, no transform */
+
+    color:var(--green-light);
+
+    background:
+        linear-gradient(
+            180deg,
+            #ffffff 0%,
+            #d8ffdd 25%,
+            #91ff9f 55%,
+            #4cdd65 100%
+        );
+
+    -webkit-background-clip:text;
+    background-clip:text;
+
+    -webkit-text-fill-color:transparent;
+
+    filter:
+        drop-shadow(0 0 4px rgba(200,255,207,.7))
+        drop-shadow(0 0 15px rgba(80,255,100,.45));
+
+    animation:logoGlow 3s ease-in-out infinite;
+}
+
+@keyframes logoGlow{
+    0%,100%{
+        filter:
+            drop-shadow(0 0 4px rgba(200,255,207,.6))
+            drop-shadow(0 0 14px rgba(80,255,100,.35));
+    }
+
+    50%{
+        filter:
+            drop-shadow(0 0 7px rgba(220,255,225,.8))
+            drop-shadow(0 0 25px rgba(80,255,100,.55));
+    }
+}
+
+/* Tiny decorative dots */
+
+.logo-dot{
+    position:absolute;
+
+    width:4px;
+    height:4px;
+
+    border-radius:50%;
+
+    background:#baffc2;
+
+    box-shadow:
+        0 0 10px #8aff9b;
+}
+
+.dot1{
+    top:10px;
+    left:23px;
+    animation:dotPulse 2s infinite;
+}
+
+.dot2{
+    bottom:14px;
+    right:17px;
+    animation:dotPulse 2s infinite .7s;
+}
+
+.dot3{
+    top:35px;
+    right:2px;
+    animation:dotPulse 2s infinite 1.2s;
+}
+
+@keyframes dotPulse{
+    0%,100%{
+        opacity:.25;
+        transform:scale(.7);
+    }
+
+    50%{
+        opacity:1;
+        transform:scale(1.3);
+    }
+}
+
+/* =========================
+   TITLE
+========================= */
+
+.title{
+    font-size:36px;
+
+    font-weight:1000;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+
+    color:white;
+
+    text-shadow:
+        0 0 20px rgba(160,255,175,.08);
+}
+
+.title span{
+    color:var(--green);
+
+    text-shadow:
+        0 0 15px rgba(100,255,120,.3);
+}
+
+.title-line{
+    width:65px;
+    height:2px;
+
+    margin:11px auto 0;
+
+    border-radius:10px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            var(--green),
+            transparent
+        );
+
+    box-shadow:
+        0 0 12px rgba(120,255,140,.5);
+}
+
+.subtitle{
+    margin-top:12px;
+    margin-bottom:29px;
+
+    color:#77827b;
+
+    font-size:13px;
+
+    line-height:1.7;
+}
+
+/* =========================
+   KEY BOX
+========================= */
+
+.label{
+    margin:0 0 8px 5px;
+
+    text-align:left;
+
+    color:#718078;
+
+    font-size:10px;
+
+    font-weight:800;
+
+    letter-spacing:1.7px;
+
+    text-transform:uppercase;
+}
+
+.key-box{
+    display:flex;
+    align-items:center;
+
+    gap:8px;
+
+    padding:7px;
+
+    border-radius:16px;
+
+    background:rgba(255,255,255,.035);
+
+    border:1px solid rgba(168,255,180,.10);
+
+    transition:.3s ease;
+}
+
+.key-box:hover{
+    border-color:rgba(168,255,180,.32);
+
+    box-shadow:
+        0 0 25px rgba(90,255,110,.08);
+}
+
+#key{
+    width:100%;
+    min-width:0;
+
+    padding:14px 10px;
+
+    border:0;
+    outline:0;
+
+    background:transparent;
+
+    color:#d9ffdf;
+
+    font-size:13px;
+
+    font-weight:600;
+}
+
+.copy-btn{
+    flex-shrink:0;
+
+    padding:14px 18px;
+
+    border:0;
+
+    border-radius:11px;
+
+    cursor:pointer;
+
+    color:#041007;
+
+    font-size:12px;
+
+    font-weight:900;
+
+    background:
+        linear-gradient(
+            135deg,
+            #dcffe1,
+            #9bffaa,
+            #5de970
+        );
+
+    box-shadow:
+        0 8px 22px rgba(80,255,100,.16);
+
+    transition:.25s ease;
+}
+
+.copy-btn:hover{
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 12px 30px rgba(80,255,100,.30);
+}
+
+.copy-btn:active{
+    transform:scale(.96);
+}
+
+.status{
+    min-height:18px;
+
+    margin-top:12px;
+
+    color:#59645d;
+
+    font-size:11px;
+}
+
+.status.success{
+    color:var(--green);
+
+    text-shadow:
+        0 0 10px rgba(120,255,140,.3);
+}
+
+/* =========================
+   INFO
+========================= */
+
+.info{
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:10px;
+
+    margin-top:23px;
+}
+
+.info-card{
+    padding:14px;
+
+    border-radius:15px;
+
+    background:rgba(255,255,255,.025);
+
+    border:1px solid rgba(255,255,255,.055);
+
+    transition:.3s;
+}
+
+.info-card:hover{
+    transform:translateY(-3px);
+
+    border-color:rgba(168,255,180,.18);
+}
+
+.info-card span{
+    display:block;
+
+    margin-bottom:5px;
+
+    color:#566159;
+
+    font-size:9px;
+
+    font-weight:800;
+
+    letter-spacing:1.4px;
+}
+
+.info-card strong{
+    font-size:12px;
+}
+
+.active{
+    color:#a8ffb4;
+
+    text-shadow:
+        0 0 10px rgba(100,255,120,.25);
+}
+
+.footer{
+    margin-top:22px;
+
+    color:#414b44;
+
+    font-size:9px;
+
+    letter-spacing:1.4px;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:460px){
+
+    .card{
+        width:92%;
+        padding:31px 18px 25px;
+    }
+
+    .logo-area{
+        transform:scale(.92);
+        margin-bottom:2px;
+    }
+
+    .title{
+        font-size:29px;
+        letter-spacing:1.5px;
+    }
+
+    .key-box{
+        flex-direction:column;
+    }
+
+    #key{
+        text-align:center;
+    }
+
+    .copy-btn{
+        width:100%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- BACKGROUND -->
+
+<div class="background">
+
+    <div class="glow left"></div>
+    <div class="glow right"></div>
+
+    <div class="grid"></div>
+
+    <span class="particle p1"></span>
+    <span class="particle p2"></span>
+    <span class="particle p3"></span>
+    <span class="particle p4"></span>
+    <span class="particle p5"></span>
+    <span class="particle p6"></span>
+    <span class="particle p7"></span>
+
+</div>
+
+
+<!-- MAIN CARD -->
+
+<main class="card">
+
+    <!-- ZN LOGO -->
+
+    <div class="logo-area">
+
+        <div class="logo-circle"></div>
+
+        <div class="logo-ring"></div>
+
+        <div class="logo-text">
+            ZN
+        </div>
+
+        <span class="logo-dot dot1"></span>
+        <span class="logo-dot dot2"></span>
+        <span class="logo-dot dot3"></span>
+
+    </div>
+
+
+    <!-- TITLE -->
+
+    <h1 class="title">
+        ZEROIN <span>HUB</span>
+    </h1>
+
+    <div class="title-line"></div>
+
+    <p class="subtitle">
+        Premium Access Key System
+        <br>
+        Your key is ready to use
+    </p>
+
+
+    <!-- KEY -->
+
+    <div class="label">
+        Access Key
+    </div>
+
+    <div class="key-box">
+
+        <input
+            id="key"
+            type="text"
+            value="ZeroInHubKey - Gu143HskwHwiwjdb"
+            readonly
+        >
+
+        <button
+            class="copy-btn"
+            id="copyButton"
+            onclick="copyKey()"
+        >
+            Copy Key
+        </button>
+
+    </div>
+
+    <div
+        class="status"
+        id="status"
+    >
+        Click Copy Key to copy your access key
+    </div>
+
+
+    <!-- INFO -->
+
+    <div class="info">
+
+        <div class="info-card">
+
+            <span>STATUS</span>
+
+            <strong class="active">
+                ● ACTIVE
+            </strong>
+
+        </div>
+
+        <div class="info-card">
+
+            <span>SYSTEM</span>
+
+            <strong>
+                ZEROIN HUB
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer">
+        ZEROIN HUB • PREMIUM KEY SYSTEM
+    </div>
+
+</main>
+
+
+<script>
+
+function copyKey(){
+
+    const key =
+        document.getElementById("key").value;
+
+    const button =
+        document.getElementById("copyButton");
+
+    const status =
+        document.getElementById("status");
+
+    navigator.clipboard.writeText(key)
+
+    .then(()=>{
+
+        button.textContent="COPIED ✓";
+
+        status.textContent=
+            "Access key copied successfully!";
+
+        status.classList.add("success");
+
+        setTimeout(()=>{
+
+            button.textContent="Copy Key";
+
+            status.textContent=
+                "Click Copy Key to copy your access key";
+
+            status.classList.remove("success");
+
+        },2200);
+
+    })
+
+    .catch(()=>{
+
+        status.textContent=
+            "Copy failed. Please copy the key manually.";
+
+    });
+
+}
+
+</script>
+
+</body>
+</html>
